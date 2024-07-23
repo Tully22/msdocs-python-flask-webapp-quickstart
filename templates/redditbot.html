@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Tull's Thoughts - Building and automating a redditbot part 1</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="static/css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <!--<a class="navbar-brand" href="index.html">Start Bootstrap</a>-->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('home') }}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('about') }}">About</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('post') }}">Example Post</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('contact') }}">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Page Header-->
+        <header class="masthead" style="background-image: url('static/images/redditbot/there-will-be-blood2.jpg')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="post-heading">
+                            <h1>I built and automated a Daniel Plainview redditbot using Python!</h1>
+                            <h2 class="subheading">Part 1</h2>
+                            <span class="meta">
+                                Posted by
+                                <a href="#!">Harry Tull</a>
+                                on October 30, 2021
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Post Content-->
+        <article class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <p>I enjoy reddit, it's a great place to read up for data engineering, to see the challenges others go through, advice people give, <a href="https://www.reddit.com/r/dataengineering/">r/dataengineering</a> is a great community. I also like reddit for the nonsense I see on there to read and unwind. I thought how do I combine my love of nonsense on reddit with programming?...of course I'll make a redditbot!</p>
+                        <p>I always find the reply bots funniest, the brilliance is in the triggering of them. I enjoy film, in particular the acting of Daniel Day Lewis, his portrayal of Daniel Plainview in There will be blood is one of his best for me (if you haven't seen it, make time to do so, he won an Oscar!), his performance as Bill the Butcher in Martin Scorsese's Gangs of New York is another of my favourites...However Daniel Plainviews pure shithousery and machiavelianian ways in There will be blood make a for a more interesting character. His sheer determinsm to get his pipeline built for oil transportation reasonates with me as a data engineer...and thus an idea was born...DanielPlainviewBot!</p>
+                        <p><b>Objective:</b> Create a reddibot that automatically replies to any mention of 'there will be blood' on reddit with a random Daniel Plainview quote.</p>
+                        <p><b>Disclaimer:</b> While some of Daniel Plainview's greatest quotes may not be 100% acceptable in most environments, please understand..if you really want to get good at programming and be a data engineer..continual learning is a necessity in our industry..combine things you love with the tools you use and watch your skills and positivity go exponential, rather than following some dead boring how to suck an egg tutorial!</p>
+                        <h2 class="section-heading">Getting Started</h2>
+                        <p>I decided I will just make a new reddit account for this project, u/DanielPlainviewBot, now I need to create a reddit app by going to <a href="https://www.reddit.com/prefs/apps/">https://www.reddit.com/prefs/apps/</a>. Give it a name and select script using the radio button (description optional).</p>
+                        <p><a href="#!"><img class="img-fluid" src="static/images/redditbot/creatredditapp1.PNG" alt="..." /></a></p>
+                        <p>You will now get a client_id/personal use script (red box) and a secret (blue box). Note it down, but keep it secret.</p>
+                        <p><a href="#!"><img class="img-fluid" src="static/images/redditbot/creatredditapp2.PNG" alt="..." /></a></p>
+                        <p>So that is all done, I spent 5 minutes customising my DanielPlainviewBot reddit avatar for extra effect.</p>
+                        <p><a href="#!"><img class="img-fluid" src="static/images/redditbot/redava.PNG" alt="..." /></a></p>
+                        <!-- <blockquote class="blockquote">//</blockquote>-->
+                        <p>My bot is going to work like so (below), 3 scripts, main.py where the running of danielplainviewbot will take place, main.py will import credentials from config.py and character quotes listed in quotes.txt.</p>
+                        <p><a href="#!"><img class="img-fluid" src="static/images/redditbot/arc.PNG" alt="..." /></a></p>
+                        <h2 class="section-heading">Setting Up</h2>
+                        <p>First of all I set up a new virtual environment (this is good practice), I like my projects to be individual and clean for management so straight into command prompt virtualenv redditbot..DONE!</p>
+                        <p>Now I need to install the libraries I intend to use, this is a new virtual environment so it doesn't have everything I need right away. I will be making use of PRAW, Python Reddit API Wrapper, this package allows for access to Reddit's API. PRAW aims to be easy to use and follows all of Reddit's API rules. With PRAW there's no need to introduce sleep calls in your code 
+                        (this basically means if my bot starts spamming/is triggered too often it will get told to be quiet!). I will also be making use of a config.py file (for my credentials to be parsed in), random, time and requests</p>
+                        <p>If you are familiar with Python, we navigate to our virtualenv directory and then 'pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org <i>packagename</i>'.</p>
+                        <p>Following this I run 'pip freeze' in our cmd prompt, this outputs the successfully installed packages in a list, I then copy the output into a new requirements.txt file that is saved within our virtualenv directory (this is important for part 2 but also good practice).</p>
+                        <a href="#!"><img class="img-fluid" src="static/images/redditbot/reqs.PNG" alt="..." /></a>
+                        <h2 class="section-heading">Creating the Python scripts</h2>
+                        <!--<span class="caption text-muted">//</span>-->
+                        <p>As mentioned we have 3 scripts that are going to be used, starting with 'main.py', as always we import the required packages first. The screenshot shows the yellow underline when packages aren't available within the environment, as I am working on my website (different virtualenv) as I write out this blog post.</p>
+                        <a href="#!"><img class="img-fluid" src="static/images/redditbot/importpackages2.PNG" alt="..." /></a>
+                        <p>The main.py works by logging into reddit as DanielPlainviewBot, scanning the comments of a subreddit as they come in and look for the trigger word (defined in config.py 'there will be blood') by defining the subredditname as 'all' it will target every subreddit, this can be amended for specific subreddits i.e. r/movies or r/AskReddit. 
+                        If a comment contains the defined trigger word, the script will reply with a random quote from the quote.txt. If the random quote that has been selected contains !USERNAME, the script will replace !USERNAME with the reddit commenter usernames handle it is replying to (this makes it really personal!).</p>
+                        <p>The bot is a class with a number of user defined functions added in. A class is like an outline for creating a new object. An object is anything that you wish to manipulate or change while working through the code. Every time a class object is instantiated, which is when we declare a variable, a new object is initiated from scratch. Class objects can be used over and over again whenever needed (like my bot!). </p>
+                        <a href="#!"><img class="img-fluid" src="static/images/redditbot/class.PNG" alt="..." /></a>
+                        <p>I want my bot to do a number of specific things, I want it to scan reddit for comments, be triggered and initiate when the trigger is mentioned, when initiated fetch and reply with a quote from quotes.txt (randomly not sequentially), not reply to the same comment over and over again, not reply with the same quotes,
+                        and replace !USERNAME with the commenters reddit username. I do this by using a user defined functions that sit within the class. The self is used to represent the instance of the class. With this keyword, I can access the attributes and methods of my class in python</p>
+                        <a href="#!"><img class="img-fluid" src="static/images/redditbot/udf.PNG" alt="..." /></a>
+                        <p>By using PRAW I can create an instance of my bot using the praw.Reddit class. To its constructor, I must pass a meaningful user-agent, the client id, the client secret (noted down earlier), reddit account’s username, and its password. The user agent is something that a human might read at some point in a log somewhere, so it's useful to include something like the name of my bot and username in it i.e. 'replybot by /u/danielplainviewbot'.
+                        Below all my credentials are parsed into my user defined function from my config.py file.</p>
+                        <a href="#!"><img class="img-fluid" src="static/images/redditbot/defbot.PNG" alt="..." /></a>
+                        <p>For config.py, I add in the strings for our credentials and they are defined as variables that are called in main.py, this keeps private info out of boiler plate and is good practice (I run my website in this fashion too).</p>
+                        <a href="#!"><img class="img-fluid" src="static/images/redditbot/configpy.PNG" alt="..." /></a>
+                        <h2 class="section-heading">Populating the quotes.txt</h2>
+                        <p>This is dead easy, I created a file called 'quotes.text' then populated with all my favourite lines from Daniel Plainview, each quote should be placed on its own line.</p>
+                        <p><a href="#!"><img class="img-fluid" src="static/images/redditbot/quotes.PNG" alt="..." /></a>
+                        <h2 class="section-heading">Success!</h2>
+                        <p>Now that everything is built and in place, the main.py, config.py and the quotes.txt file, I run the script (after a few tests of course) and below you can see (after a few hours) DanielPlainviewBot is going wild on reddit at the mention of his trigger 'there will be blood'.</p>
+                        <a href="#!"><img class="img-fluid" src="static/images/redditbot/resultscomments.PNG" alt="..." /></a>
+                        <p>This redditbot is running off my PC, this isn't ideal! I have electricity bills to pay and leaving a laptop on constantly is not practical, DanielPlainviewBot now needs migrating and automating in <a href="{{ url_for('post2') }}">part 2!</a> </p>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <!-- Footer-->
+        <footer class="border-top">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <ul class="list-inline text-center">
+                            <li class="list-inline-item">
+                                <a href="#!">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-instagram fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://www.linkedin.com/in/harrytull/">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://github.com/Tully22">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="small text-center text-muted fst-italic">Copyright &copy; Harry Tull 2021</div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>

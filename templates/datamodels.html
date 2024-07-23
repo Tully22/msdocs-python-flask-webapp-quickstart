@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Data Models</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="static/css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <!--<a class="navbar-brand" href="index.html">Start Bootstrap</a>-->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('home') }}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('about') }}">About</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('post') }}">Example Post</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('contact') }}">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Page Header-->
+        <header class="masthead" style="background-image: url('static/images/datamodel/Cover5.png')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="post-heading">
+                            <h1>Data Modelling</h1>
+                            <h2 class="subheading">A brief overview of data modelling and why it is important!</h2>
+                            <span class="meta">
+                                Posted by
+                                <a href="#!">Harry Tull</a>
+                                on January 25, 2022
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Post Content-->
+        <article class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <p>Okay, since being back in the U.K. from South Africa it has been rather a turbulent start! I have just purchased a house and me and my very pregnant wife
+                        have been making do at my folks place. My clean plate at work has been filled to the brim and I have not had as much time recently as I would like to publish my personal works!
+                        so today's post is a little bit different as it is more narrative rather than exploration and build. I will be talking about and discussing a fundamental concept in my day-to-day work
+                        ... <b>data modelling</b>.
+                        </p>
+                        <h2 class="section-heading">Introduction</h2>
+                        <p>I work and have worked across multiple industries with a variety of clients and a wide range of in-house capability in regards to business intelligence
+                        and reporting. In my line of work performance reporting is generally what my clients are after, they are carrying out their responsibilities or duties assigned to them, and senior management 
+                        wants transparency of this to make informed and actionable decisions for the project or for the business above and beyond i.e. their job is to manage and steer the business, 
+                        a project spends business money, that money comes from an annual budget and the project also has a deadline for completion.</p>
+                        <p>Regular, accurate and transparent reporting on all things associated with said project is a critical need for them to perform all the above.
+                        Most times they either don’t have any reporting on the project in question at all and will need it or they may have a reporting solution but it’s not aligned with their existing or near future business processes and workflow's, 
+                        or it can be a mix of the both!</p>
+                        <p>In either case they need a solution to meet their needs. With 99.9% of them now being on Office365, they are very aware of Power BI and generally understand its capabilities and the benefits of SaaS. 
+                        What I often find is they are not fully aware of is the underlying knowledge required in designing a robust data model aligned with their needs.</p>
+                        <h2 class="section-heading">What is a data model and data modelling?</h2>
+                        <p>Data modelling is a process used to define and analyse data requirements needed to support the business processes within the scope of the corresponding technology.
+                        A data model organises data elements and standardises how these data elements relate to one another and to the properties of real world things!</p>
+                        <p><a href="#!"><img class="img-fluid" src="static/images/datamodel/datamodel.png" alt="Data Model" /></a></p>
+                        <p>If you Google 'data model', it will present you with a pretty picture like the above. Boxes represent tables, box content represent columns of that table and the arrows represent relationship and relationship type. Any seasoned data analyst or engineer
+                        will need to define (or modify) a model to ensure it captures and aligns the reporting equirements of a business.</p>
+                        <h2 class="section-heading">How do I do this?</h2>
+                        <p>The process of data modeling for me involves working closely with business stakeholders and users of the current or planned information system and then the design, testing and implementation of this model that is customised to their reporting requirements.
+                        I have over simplified the process extremely here but the detail of the methods used in the <i>how</i> is another story for another day!</p>
+                        <p>Knowledge of the domain you are working in not to be under estimated, you need to wear your clients shoes in order to understand their reporting requirements, especially as it can be tough for them to translate
+                        this to you and in a technical manner. One such requirement that can heavily affect your data model choice and design is the reporting cycle. This is the <i>when</i>. Monthly reporting is very common however it will always be scenario dependent!</p>
+                        <h2 class="section-heading">Types of Data Models</h2>
+                        <p><b>Star Schema</b></p>
+                        <p><a href="#!"><img class="img-fluid" src="static/images/datamodel/star.png" alt="Star Schema" /></a></p>
+                        <p>A Star schema is a multidimensional data model where the fact and dimension tables are contained. It forms a ‘star’ shape and is a very simple top-down design, fewer joins are used and as a result it allows faster querying. However, a limitation of this 
+                        simplicity is it often does not possess the detail required by a business for a frequent reporting cycle, normalization is not used either so data integrity can get out of hand very quickly! And make any insights useless! It can be used for a ‘quick and dirty’ 
+                        model or view of a sub-section of data (like a data mart) to visualise some quick insights.</p>
+                        <p><b>Snowflake Schema</b></p>
+                        <p><a href="#!"><img class="img-fluid" src="static/images/datamodel/snowflake.png" alt="Snowflake Schema" /></a></p>
+                        <p>The snowflake schema is an extension of a Star schema. The main difference is that in this architecture each reference table can be linked to one or more reference tables. This schema forms a ‘snowflake’ shape with fact tables, dimension tables as well as the reference tables.
+                        A key benefit is to the snowflake is by having the reference tables for lookups it offers greater protection from data integrity issues.  Data in a snowflake schema is normalized, therefore queries can be slower because of the required join complexities.</p>
+                        <p>...okay cheers Harry so what are you really saying? They both have advantages and disadvantages…..well yes that is true..</p>
+                        <p><b>Starflake Schema</b></p>
+                        <p><a href="#!"><img class="img-fluid" src="static/images/datamodel/starflake.png" alt="Starflake Schema" /></a></p>
+                        <p>A Starflake schema is a combination of a star and a snowflake schema. Starflake schemas are snowflake schemas where only some of the dimension tables have been normalized, it aims to leverage the benefits of both schemas. To normalize the schema, the shared dimensional hierarchies are placed in outriggers. 
+                        Outriggers are tables or entities that are shared by more than one dimension.</p>
+                        <h2 class="section-heading">Conclusion</h2>    
+                        <p>If I was Mr. or Mrs. Ideal Client, working for Idealsville Ltd in the country of Idealsland, where budgets, time restrictions and business digital maturity and capability didn't exist, then yes, I would go ahead and build my big Snowflake schema and house it on a SQL instance in Azure/AWS and
+                        then build all the relevant data marts off of it for my particular departments or users. However, the journey to Idealsand is not an easy feat always, sometimes simple and relatively immediate benefitting models will do … like a Starflake schema.</p>
+                        <p>Data Modelling is one of the features used to connect multiple data sources in Power BI, you can create a relationship or relationships from one data source to another. A data model is where these relationships define how these data sources relate to each other. 
+                        Whether we do it in Power BI or within SQL Server, understanding and defining this logic for the relationship types is critical to build a useful and compelling report that your client and users are happy to use. 
+                        The data modelling ability allows me to build and leverage the benefits of a Starflake model and implement detailed custom DAX calculations on the existing tables (should I need to), these DAX calculations allow me to implement and perform the often very ad-hoc data requests that can come from a client and present the results immediately in Power BI.</p>            
+                    </div>
+                </div>
+            </div>
+        </article>
+        <!-- Footer-->
+        <footer class="border-top">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <ul class="list-inline text-center">
+                            <li class="list-inline-item">
+                                <a href="#!">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-instagram fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://www.linkedin.com/in/harrytull/">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://github.com/Tully22">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="small text-center text-muted fst-italic">Copyright &copy; Harry Tull 2021</div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>

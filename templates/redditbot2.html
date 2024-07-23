@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Tull's Thoughts - Building and automating a redditbot part 2</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="static/css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <!--<a class="navbar-brand" href="index.html">Start Bootstrap</a>-->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('home') }}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('about') }}">About</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('post') }}">Example Post</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('contact') }}">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Page Header-->
+        <header class="masthead" style="background-image: url('static/images/redditbot/there-will-be-blood2.jpg')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="post-heading">
+                            <h1>I built and automated a Daniel Plainview redditbot using Python!</h1>
+                            <h2 class="subheading">Part 2</h2>
+                            <span class="meta">
+                                Posted by
+                                <a href="#!">Harry Tull</a>
+                                on October 31, 2021
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Post Content-->
+        <article class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <p>In the previous blog I had created a Daniel Plainview themed reddit replybot that responded with random Daniel Plainview script lines when triggered on the reddit social media platform.
+                        <p>In this blog post I will be migrating the files that form my bot to a Raspberry Pi 3 in order to automate it. To do this I need my my PC, Raspberry Pi, a keyboard, a monitor and a 4GB SD Card.</p>
+                        <p><b>Objective:</b> Set up a headless Raspberry Pi, install Python and migrate my reddibot files onto it so my bot can always run.</p>
+                        <h2 class="section-heading">Getting Started</h2>
+                        <p>First of all I need to set up my Pi, I will do this my inserting my SD card into my PC then using Raspberry Pi imager to write OS Lite onto it (this is a variant of debian with no GUI so I will first set my Pi up then connect using SSH in Windows Powershell).</p>
+                        <p><a href="#!"><img class="img-fluid" src="static/images/redditbot/pimager.PNG" alt="..." /></a></p>
+                        <p>Once this is done, I then need to enable WiFi, I cannot find my ethernet cable to do this so I am going to do it by enabling WiFi by creating a file in my /boot directory. In notepad I create a wpa_supplicant.conf file with the following content.</p>
+                        <p><a href="#!"><img class="img-fluid" src="static/images/redditbot/wpa.PNG" alt="..." /></a></p>
+                        <p>SSID is by home network's name, password is it's password obviously and country I just set GB. I now need to test this is working, I put my SD card into my Pi and boot it up. I did mention earlier about the monitor and keyboard, so I have also plugged them in for when it boots.</p>
+                        <p>I bought this Pi about 2 years ago, I regularly use bash and linux for client systems at work but I have been in South Africa for the last few years and not got round to it. I have greater ambitions in regards to the the construction of a homeserver but for now this will do, it's my first time using it so I do want to use the screen and see how it looks.
+                        Below is a picture of my little set up! I told myself I would take pristeen photo's for when I blog this however I was so into getting it set up I just took them on the fly, anyway you get the gist..it works!
+                        </p>
+                        <p><a href="#!"><img class="img-fluid" src="static/images/redditbot/pi.PNG" alt="..." /></a></p>
+                        <p>Okay so the .conf file is sorted but I do need to enable SSH so I can connect to it without my hardware all out (and so my mum doesn't nag me about leaving electronics everywhere!), this can actually be done in a similar fashion as before by placing a file on the SD card but I forgot, so I will enable it by 
+                            typing 'sudo raspi-config' on my Pi keyboard. This brings up the below menu, where I can navigate to 5 Interfacing Options.
+                            </p>
+                        <p><a href="#!"><img class="img-fluid" src="static/images/redditbot/enablessh1.PNG" alt="..." /></a></p>
+                        <p>I press enter and get the below menu, here I press enter and enable SSH then restart my device.</p>
+                        <p><a href="#!"><img class="img-fluid" src="static/images/redditbot/enablessh2.PNG" alt="..." /></a></p>
+                        <h2 class="section-heading">Installing Python</h2>
+                        <p>Python 2 does come pre-installed on the Pi, however I have written my bot in 3.9 and always use the latest so I need to install that and then unpack it!</p>
+                        <p>I downloaded the latest python version using the wget command 'wget https://www.python.org/ftp/python/3.9.7/Python-3.9.7.tgz', I then needed to extract the files using 'tar -zxvf Python-3.9.7.tgz'</p>
+                        <p>Once this was done I navigated to the unpacked files 'cd Python-3.9.7' and compiled the source code to install 3.9 './configure --enable-optimizations', then I installed using 'sudo make altinstall', this took a while!
+                        After this was done I made 3.9 the default python on my Pi.</p>
+                        <h2 class="section-heading">Migrating the files</h2>
+                        <!--<span class="caption text-muted">//</span>-->
+                        <p>I already have all my working files from my bot creation, I will FTP these to my Pi using FileZilla. As this is my personal blog and designed for personal development and showcasing my work and skills, I can be a bit light on detail and documentation. I must mention that before I started migrating the
+                        I set up a virtualenv for my reddibot on my Pi, installed all the relevant packages from requirements.txt, logged into my home network and gave my Pi a static IP so I can now SSH to it from my PC using the same IP address everytime.</p>
+                        <p>As a result of this I disconnected all my hardware, tidied it away and plugged my Pi in to another socket where my mum can't have a go at me to move all my 'junk'!...so now it is running headless and I can connect remotely off my laptop!</p>
+                        <a href="#!"><img class="img-fluid" src="static/images/redditbot/filezilla.PNG" alt="..." /></a>
+                        <p>To ensure I have write permissions I used the sudo chmod command, this is the command and system call used to change the access permissions of file system objects/directories.</p>
+                        <p>Files can now be copied over easy using my FileZilla GUI, then in my PowerShell window I cd to the /reddibot directory, acvtivate my virtual environment 'source ./redditbot/bin/activate' and run 'python main.py'</p>
+                        <h2 class="section-heading">Final Touch - Adding a Cron Job</h2>
+                        <p>While I did go to the trouble of wrapping my bot's code in a while, try except statement for unforeseen errors i.e. a Forbidden 403 when attempting to use PRAW to collect posts, a cron job will provide additional assurance to make sure my script is running
+                        and has as much uptime as possible. In a working environment a cron job/task scheduler would be key for an ETL pipeline to ensure scripts are processed frequently.
+                        I found <a href="https://crontab.guru/every-6-hours">this</a> was a useful resource to attain my preferred timing of script execution if you are new to crontab, I accessed crontab using 'crontab -e' then added my scheduled command
+                        '0 */6 * * * cd /home/redditbot && /home/redditbot/bin/python /home/redditbot/main.py /tmp/cronlog.txt 2>&1' - this activates my virtualenv and runs my script main.py whatever the weather every 6 hours.</p>
+                        <p><a href="#!"><img class="img-fluid" src="static/images/redditbot/crontab.PNG" alt="..." /></a></p>
+                        <p>So there you have it! <a href="https://www.reddit.com/user/DanielPlainviewBot/">DanielPlainviewBot</a> runs off a very efficient Raspberry Pi and will terrorise redditors around the clock even while I am sleeping, working or getting on with other areas of my life!</p>                      
+                    </div>
+                </div>
+            </div>
+        </article>
+        <!-- Footer-->
+        <footer class="border-top">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <ul class="list-inline text-center">
+                            <li class="list-inline-item">
+                                <a href="#!">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-instagram fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://www.linkedin.com/in/harrytull/">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://github.com/Tully22">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="small text-center text-muted fst-italic">Copyright &copy; Harry Tull 2021</div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Tull's Thoughts - I built a homelab using my old PC!</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="static/css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <!--<a class="navbar-brand" href="index.html">Start Bootstrap</a>-->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('home') }}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('about') }}">About</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('post') }}">Example Post</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('contact') }}">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Page Header-->
+        <header class="masthead" style="background-image: url('static/images/homeserver/homelab.jpg')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="post-heading">
+                            <h1>Building a homelab</h1>
+                            <h2 class="subheading">I built a homelab using my old PC!</h2>
+                            <span class="meta">
+                                Posted by
+                                <a href="#!">Harry Tull</a>
+                                on November 15, 2021
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Post Content-->
+        <article class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <p>I think of the cloud computing revolution to have really kicked in around 2011/12. Some may argue earlier as by 2010, Amazon, Google, Microsoft had all launched cloud divisions, some may argue even earlier! depending on the context i.e. AWS first launching in 2006 and Google Docs was available the same year (this service definetly contributed to some of my university group projects!).
+                            However I think of this revolution happening as cloud services were adopted by organisations, and I started to see the buzzwords in advertised job roles, eventually the idea of using public and private clouds together was not seen as a risk.
+                        <p>Hybrid clouds enabled organisations to better customise their implementations and integrate cloud services into their business while still utilising infrastructure they had invested in for legacy services. In addition the ability to better and easier forecast their IT OpEx as they only pay for what they use.</p>
+                        <p>In 2011, iCloud was released by Apple, enabling retail consumers to begin using cloud storage in their daily lives, a couple years down the line and now most entity's have Office365 (a nice little push from covid-19 has sped this up too).</p>
+                        <p>In this blog post I will be creating a homeserver, or homelab, to house and test my projects/solutions using my old PC, eventually I would like to invest in a more powerful homeserver, but for now this is fit for purpose.</p>
+                        <p><b>Objective:</b> Build a homelab that I can use to house my personal projects on using an old computer</p>
+                        <h2 class="section-heading">Getting Started</h2>
+                        <p>Well it's been sat in the garage since I left for Africa, so to keep things short and sweet, I gave her a thorough clean, fired her up, backed up any old files on my external HD (data hoarder alert!), I noticed it in fact only has 8GB of RAM (it's also got a basic Mobo, i7 3rd Gen CPU and 2 HDD's)..I mean we're on a budget here but 8GB in today's world is pathetic! With that noted I quickly used my Mum's Amazon Prime Account and ordered me 2x8GB RAM sticks and 2 SSD's. While I was waiting for them to be posted I wiped my machine clean and formatted all drives.</p>
+                        <p><a href="#!"><img class="img-fluid" src="static/images/homeserver/Comp1.PNG" alt="..." /></a></p>
+                        <p>..This image is pre tidy up (Mum's hairdryer and a few cotton buds to clean gunk off the fans) and removal of the CD Drive, I did also buy a new bracket to fasten my SSD's...</p>
+                        <p><a href="#!"><img class="img-fluid" src="static/images/homeserver/proxmox.PNG" alt="..." /></a></p>
+                        <p>Okay, so after some thought I have decided I want to have the power to switch between OS's, create and kill Virtual Machine's at my will, spin up Docker containers as and when for my project's, all the while on piece of metal that is acting as a server running 24/7 (RIP mum's electric bill)...the answer is..Proxmox!
+                        ..Right so what is and why Proxmox? <a href="https://www.proxmox.com/en/">Proxmox Virtual Environment</a> is based on the Debian Linux distribution for server virtualization. It allows me to install different OS's (Windows, Linux and others) on a single computer or a cluster built by grouping computers together. It also has a neat little web accessible GUI, so once it is installed up and running I can access and boss it via my laptop on the LAN and leave my server headless. Secondly it's open source so well within budget!</p>
+                        <h2 class="section-heading">How did I do this?</h2>
+                        <p>Well.. in short, I downloaded a few ISO's (for later), but first made a bootable USB loaded Proxmox on, plugged it in my machine then installed it.</p>
+                        <p>1. Downloaded the ProxMox VE ISO file </p>
+                        <p>2. Downloaded a tool that will convert my usb stick into a bootable one (<a href="https://rufus.ie/en/">Rufus</a>)</p>
+                        <p>3. Found an old USB stick of 16GB and flashed the Proxmox ISO to it</p>
+                        <p>4. Inserted the USB into my old PC (monitor connected) and installed Proxmox from USB, I specified my new 120GB SSD as the target hard disk</p>
+                        <p>5. Created a hostname during install and then checked my LAN for a free IP address to assign to it (for remote access on the laptop later)</p>
+                        <p>6. Rebooted after install </p>
+                        <p>7. Used the IP address to access it via my laptop (I have BT HomeHub, to stop it from assigning a new address I logged on to the router and specified it to remain static, there is a better solution for this but that's another adventure for another day).</p>
+                        <h2 class="section-heading">System Architecture</h2>
+                        <p>As stated, I've taken my old PC, spent a hundred quid giving it some more fire power and below is my architecture in mind, one physical machine with multiple VM's and ability to run Docker on it. Why? For instance, my application (future project!) 
+                            may need to interact with a database that resides in a one of my VM's. Provided that the right networking is in place, the application can interact with the database on the VM.</p>
+                        <p><a href="#!"><img class="img-fluid" src="static/images/homeserver/Arc.PNG" alt="..." /></a></p>
+                        <h2 class="section-heading">Creating a VM</h2>
+                        <p>For my first VM, I want to use Ubuntu Server and then install Docker and run an image that has MS SQL Server..(Why? I had this set-up once for a client, it's pretty easy to understand, lightweight and perfect for a future project I have in mind). 
+                            Once this is done this will be another computer available on my network, I tried to explain it to my Step-Dad (who looked increasingly p***ed off as I messed about with his phone cabling)..using the film Inception as a metaphor (dream within a dream..computer within a computer)..anyway turns out he hasn't seen the film, that's 5 minutes I'll never get back.</p>
+                        <p>I should mention, I grabbed a couple more ISO's for later (Ubuntu Desktop and Windows) stuck them on another USB, added the USB to the back of my server and then in Proxmox mounted it as a drive..now I have a little place to store my ISO's and access in Proxmox.</p>
+                        <a href="#!"><img class="img-fluid" src="static/images/homeserver/ubuntuserverlogin.PNG" alt="..." /></a>
+                        <p>..Obviously it's called tullserver</p>
+                        <h2 class="section-heading">Installing Docker and MS SQL Server</h2>
+                        <p>So now my Ubuntu Server is up and running (with it's own IP address), I can interact with it via SSH in PowerShell, or directly through the console Proxmox gives me in the web GUI. I did it using SSH.</p>
+                        <p><a href="#!"><img class="img-fluid" src="static/images/homeserver/DockerInstall.PNG" alt="..." /></a></p>
+                        <p>Command 'sudo systemctl status docker' lets me know its working..next pull the image I want here using 'docker pull mcr.microsoft.com/mssql/server:2019-latest'
+                        <p><a href="#!"><img class="img-fluid" src="static/images/homeserver/DockerImage.PNG" alt="..." /></a></p>
+                        <p>Magic..remotely (using my laptop) connected to my SQL Server that is sat in my container that resides on my Ubuntu Server..that is a VM..I made using Proxmox..that sits on my physical server..that sits in my Mum's living room!</p>
+                        <p><a href="#!"><img class="img-fluid" src="static/images/homeserver/SQLConnect.PNG" alt="..." /></a></p>
+                        <h2 class="section-heading">Conclusion</h2>    
+                        <p>I was able to do this in one evening, well if you include the Amazon Prime order installations and cleaning my PC..2 evenings, but due to me having a strong understanding in hardware, my target infrastructure and system architecture I made light work of this.
+                            I now have  the ability to host cloud databases to use for my projects/applications, older HDD's for NAS to access on my LAN (I told you I data hoard) all the while having the ability for performance monitoring and backup via Proxmox.
+                            As mentioned in future I might invest in a new build homelab but for now this is perfect for what I want to do!
+                        </p>                 
+                    </div>
+                </div>
+            </div>
+        </article>
+        <!-- Footer-->
+        <footer class="border-top">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <ul class="list-inline text-center">
+                            <li class="list-inline-item">
+                                <a href="#!">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-instagram fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://www.linkedin.com/in/harrytull/">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://github.com/Tully22">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="small text-center text-muted fst-italic">Copyright &copy; Harry Tull 2021</div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
