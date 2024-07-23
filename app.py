@@ -10,7 +10,7 @@ import os
 from flask import (Flask, redirect, render_template, request,
                    send_from_directory, url_for)
 from flask_bootstrap import Bootstrap
-from forms import ContactForm
+#from forms import ContactForm
 #from flask_mail import Message, Mail
 #import cred
 
